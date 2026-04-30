@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Covered Collective — Closing the Protection Gap</title>
+<style>
+  :root {
+    --near-black: #1A1A1A;
+    --verdigris: #3D7A72;
+    --off-white: #F7F5F0;
+    --card: #EDEBE4;
+    --card-border: #DDDAD2;
+    --muted: #8A8880;
+    --spine-width: 6px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--off-white); color: var(--near-black); font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; left: 0; top: 0; bottom: 0; width: var(--spine-width); background: var(--verdigris); z-index: 100; }
+  h1, h2, h3, h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: normal; line-height: 1.2; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 48px 0 54px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--off-white); border-bottom: 1px solid var(--card-border); }
+  nav .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 48px 0 54px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  nav .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--near-black); }
+  nav .nav-brand span { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; }
+  nav ul { list-style: none; display: flex; gap: 32px; align-items: center; }
+  nav ul a { text-decoration: none; color: var(--near-black); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.55; transition: opacity 0.2s; }
+  nav ul a:hover { opacity: 1; }
+
+  .hero { padding: 140px 0 96px; border-bottom: 1px solid var(--card-border); }
+  .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--verdigris); margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(34px, 5vw, 56px); max-width: 680px; margin-bottom: 32px; }
+  .hero-statement { font-size: 19px; max-width: 560px; opacity: 0.72; line-height: 1.65; margin-bottom: 48px; font-family: Georgia, 'Times New Roman', serif; font-style: italic; }
+  .btn { display: inline-block; background: var(--verdigris); color: var(--off-white); text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 26px; transition: opacity 0.2s; }
+  .btn:hover { opacity: 0.82; }
+
+  .stat-row { display: flex; gap: 48px; margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--card-border); flex-wrap: wrap; }
+  .stat { flex: 1; min-width: 160px; }
+  .stat .figure { font-family: Georgia, 'Times New Roman', serif; font-size: 40px; color: var(--verdigris); line-height: 1; margin-bottom: 8px; }
+  .stat .label { font-size: 13px; opacity: 0.6; line-height: 1.45; margin-bottom: 6px; }
+  .stat .source { font-size: 11px; color: var(--muted); }
+  .stat .source a { color: var(--verdigris); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .stat .source a:hover { border-color: var(--verdigris); }
+
+  section { padding: 96px 0; border-bottom: 1px solid var(--card-border); }
+  .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--verdigris); margin-bottom: 18px; }
+  .section-heading { font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 20px; max-width: 580px; }
+  .section-intro { font-size: 16px; max-width: 580px; opacity: 0.72; line-height: 1.7; margin-bottom: 52px; }
+
+  .functions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--card-border); }
+  .fn-card { background: var(--card); padding: 36px 32px; position: relative; }
+  .fn-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--verdigris); }
+  .fn-num { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verdigris); margin-bottom: 14px; }
+  .fn-card h3 { font-size: 20px; margin-bottom: 12px; }
+  .fn-card p { font-size: 14px; line-height: 1.65; opacity: 0.68; }
+
+  .pledge-wrap { border-bottom: 1px solid var(--card-border); }
+  .pledge-inner { background: var(--near-black); padding: 72px 54px; position: relative; }
+  .pledge-inner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--verdigris); }
+  .pledge-inner .section-label { color: var(--verdigris); }
+  .pledge-inner h2 { font-size: clamp(26px, 3.5vw, 36px); color: var(--off-white); margin-bottom: 24px; max-width: 540px; }
+  .pledge-inner p { font-size: 15px; color: var(--off-white); opacity: 0.7; max-width: 560px; line-height: 1.75; margin-bottom: 18px; }
+  .pledge-inner p:last-child { margin-bottom: 0; }
+
+  .research-list { display: flex; flex-direction: column; gap: 2px; }
+  .r-item { background: var(--card); padding: 26px 30px; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; text-decoration: none; color: var(--near-black); border-left: 3px solid transparent; transition: border-color 0.2s, background 0.15s; }
+  .r-item:hover { background: #E5E3DC; border-left-color: var(--verdigris); }
+  .r-item.pending { opacity: 0.45; pointer-events: none; }
+  .r-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verdigris); margin-bottom: 7px; }
+  .r-item.pending .r-tag { color: var(--muted); }
+  .r-item h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: normal; font-size: 15px; margin-bottom: 5px; line-height: 1.35; }
+  .r-meta { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .r-arrow { font-size: 16px; color: var(--verdigris); flex-shrink: 0; margin-top: 2px; opacity: 0.55; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-left h2 { font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 18px; }
+  .contact-left p { font-size: 15px; opacity: 0.68; line-height: 1.7; margin-bottom: 14px; }
+  .contact-email { margin-top: 32px; font-size: 14px; }
+  .contact-email a { color: var(--verdigris); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .contact-email a:hover { border-color: var(--verdigris); }
+  .contact-note { margin-top: 20px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 7px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--card); border: 1px solid var(--card-border); padding: 11px 13px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: var(--near-black); outline: none; transition: border-color 0.2s; appearance: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--verdigris); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit { width: 100%; background: var(--verdigris); color: var(--off-white); border: none; padding: 13px 24px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; margin-top: 4px; }
+  .form-submit:hover { opacity: 0.82; }
+
+  footer { padding: 36px 0; background: var(--card); }
+  .footer-inner { max-width: 960px; margin: 0 auto; padding: 0 48px 0 54px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; }
+  .footer-brand .name { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; opacity: 0.6; display: block; }
+  .footer-brand .descriptor { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verdigris); display: block; margin-top: 1px; }
+  .footer-right { font-size: 12px; color: var(--muted); }
+
+  .quote-block { background: var(--card); border-left: 3px solid var(--verdigris); padding: 22px 26px; margin-top: 40px; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 15px; line-height: 1.65; opacity: 0.78; }
+
+  .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 720px) {
+    nav ul { display: none; }
+    .functions-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stat-row { gap: 28px; }
+    .pledge-inner { padding: 40px 28px; }
+    .container { padding: 0 20px 0 26px; }
+    nav .nav-inner { padding: 0 20px 0 26px; }
+    .footer-inner { padding: 0 20px 0 26px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">
+      <svg width="34" height="21" viewBox="0 0 34 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="21" fill="#F7F5F0"/>
+        <path d="M17 2.5 A14.5 14.5 0 0 1 31.5 17" stroke="#1A1A1A" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <path d="M17 2.5 A14.5 14.5 0 0 0 2.5 17" stroke="#1A1A1A" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <rect x="0" y="15" width="34" height="7" fill="#F7F5F0"/>
+        <rect x="1.5" y="16" width="31" height="3.5" rx="1.75" fill="#3D7A72"/>
+      </svg>
+      <span>The Covered Collective</span>
+    </a>
+    <ul>
+      <li><a href="#what-we-do">What We Do</a></li>
+      <li><a href="#the-pledge">The Pledge</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="top" class="hero">
+  <div class="container">
+    <p class="eyebrow fade-in">Closing the Protection Gap</p>
+    <h1 class="fade-in">Insurance is a promise. We exist to make sure that promise reaches everyone who needs it.</h1>
+    <p class="hero-statement fade-in">The Covered Collective exists to close the insurance protection gap — connecting the best underwriters, capital providers and the communities currently outside the system.</p>
+    <a href="#what-we-do" class="btn fade-in">How We Work</a>
+    <div class="stat-row fade-in">
+      <div class="stat">
+        <div class="figure">60%</div>
+        <div class="label">of nat cat losses went uninsured in 2024 — the first year global temperatures exceeded 1.5°C</div>
+        <div class="source"><a href="https://www.bankofengland.co.uk/bank-insights/2026/mind-the-gap-uk-microprudential-perspective-general-insurance-protection-gaps" target="_blank" rel="noopener">Bank of England / PRA, 2026 ↗</a></div>
+      </div>
+      <div class="stat">
+        <div class="figure">95%+</div>
+        <div class="label">protection gap in lower-income countries — no meaningful progress in 30 years</div>
+        <div class="source"><a href="https://www.genevaassociation.org/sites/default/files/research-topics-document-type/pdf_public/understanding_and_addressing_global_insurance_protection_gaps.pdf" target="_blank" rel="noopener">Geneva Association ↗</a></div>
+      </div>
+      <div class="stat">
+        <div class="figure">$3.4tn</div>
+        <div class="label">in uninsured nat cat losses globally, 1980–2017</div>
+        <div class="source"><a href="https://www.genevaassociation.org/sites/default/files/research-topics-document-type/pdf_public/understanding_and_addressing_global_insurance_protection_gaps.pdf" target="_blank" rel="noopener">Geneva Association ↗</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="what-we-do">
+  <div class="container">
+    <p class="section-label fade-in">What We Do</p>
+    <h2 class="section-heading fade-in">Four functions. One purpose.</h2>
+    <p class="section-intro fade-in">TCC is not a broker, not a charity, not a consultancy. We convene, structure, and hold the promise — operating across four functions that together move communities from outside the system to inside it.</p>
+    <div class="functions-grid fade-in">
+      <div class="fn-card">
+        <div class="fn-num">01 — Voice</div>
+        <h3>We translate risk into language the market can work with.</h3>
+        <p>TCC goes to communities currently outside the insurance system and listens. Working with our GIS partner, we map exposure and turn lived risk into data that underwriters can price, structure and act on.</p>
+      </div>
+      <div class="fn-card">
+        <div class="fn-num">02 — Assembly</div>
+        <h3>We bring the right people to the same table.</h3>
+        <p>TCC convenes the market participants who can respond — brokers, reinsurers, parametric specialists, Lloyd's capital. Not a conference. A structured conversation with a specific outcome.</p>
+      </div>
+      <div class="fn-card">
+        <div class="fn-num">03 — Structure</div>
+        <h3>We build the conditions for solutions to exist.</h3>
+        <p>TCC facilitates the creation of the fund, pool, or product. We do not own it. We build the conditions in which it can exist — and step back. The solution belongs to the community and the market.</p>
+      </div>
+      <div class="fn-card">
+        <div class="fn-num">04 — The Pledge</div>
+        <h3>We hold the market to account.</h3>
+        <p>Capital providers who participate in a TCC-facilitated fund make a named, public, time-bound commitment that the fund will remain open for a minimum term. TCC holds and publishes the record.</p>
+      </div>
+    </div>
+    <div class="quote-block fade-in">"Solving insurtech adoption does not close the protection gap. The barriers are economic, structural, cultural, and political — not only technical. TCC exists to address what remains after the adoption problem is solved."</div>
+  </div>
+</section>
+
+<div id="the-pledge" class="pledge-wrap">
+  <div class="pledge-inner fade-in">
+    <p class="section-label">The Pledge</p>
+    <h2>Named. Public. Time-bound. On the record.</h2>
+    <p>The Pledge is built on a simple principle: accountability has to outlast the announcement. Capital providers who participate in a TCC-facilitated fund make a public, recorded commitment that the fund will remain open for a minimum term. TCC holds that record. We publish it.</p>
+
+  </div>
+</div>
+
+<section id="research">
+  <div class="container">
+    <p class="section-label fade-in">Research & Intelligence</p>
+    <h2 class="section-heading fade-in">The evidence base.</h2>
+    <p class="section-intro fade-in">TCC's work is grounded in rigorous analysis of the protection gap — its scale, its causes, and the structural conditions required to close it. A full TCC position paper is in development.</p>
+    <div class="research-list fade-in">
+
+      <a class="r-item" href="https://www.bankofengland.co.uk/bank-insights/2026/mind-the-gap-uk-microprudential-perspective-general-insurance-protection-gaps" target="_blank" rel="noopener">
+        <div>
+          <div class="r-tag">Regulatory — Bank of England / PRA, April 2026</div>
+          <h4>Mind the Gap: A UK Microprudential Perspective on General Insurance Protection Gaps</h4>
+          <div class="r-meta">The PRA on record: the problem is real, structurally significant, and beyond capacity fixes alone.</div>
+        </div>
+        <div class="r-arrow">↗</div>
+      </a>
+
+      <a class="r-item" href="https://www.genevaassociation.org/sites/default/files/research-topics-document-type/pdf_public/understanding_and_addressing_global_insurance_protection_gaps.pdf" target="_blank" rel="noopener">
+        <div>
+          <div class="r-tag">Think Tank — The Geneva Association, 2018</div>
+          <h4>Understanding and Addressing Global Insurance Protection Gaps</h4>
+          <div class="r-meta">The industry's own highest-level think tank confirms: closing the protection gap requires a multi-stakeholder effort. $3.4tn in uninsured nat cat losses, 1980–2017.</div>
+        </div>
+        <div class="r-arrow">↗</div>
+      </a>
+
+      <div class="r-item r-item--request" onclick="document.getElementById('mba-modal').style.display='flex'" style="cursor:pointer;">
+        <div>
+          <div class="r-tag">Primary Research — Rosina Smith, MBA Dissertation, Henley Business School</div>
+          <h4>Why Insurtech Adoption Keeps Failing — and What We Can Actually Do About It</h4>
+          <div class="r-meta">MBA research at Henley Business School: why, despite genuine capacity and innovation, meaningful insurtech adoption in nat cat (re)insurance remains low. Four findings — on motivation, procurement, internal incentives, and credibility — drawn from interviews with fourteen senior practitioners across the US and UK.</div>
+        </div>
+        <div class="r-arrow" style="display:flex;align-items:center;gap:6px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Request a copy</div>
+      </div>
+
+      <!-- MBA modal -->
+      <div id="mba-modal" style="display:none;position:fixed;inset:0;background:rgba(26,26,26,0.7);z-index:200;align-items:center;justify-content:center;padding:24px;">
+        <div style="background:var(--off-white);max-width:480px;width:100%;padding:48px;position:relative;">
+          <button onclick="document.getElementById('mba-modal').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1;">×</button>
+          <p style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--verdigris);margin-bottom:16px;">Request a copy</p>
+          <h3 style="font-size:22px;margin-bottom:12px;">Why Insurtech Adoption Keeps Failing</h3>
+          <p style="font-size:14px;opacity:0.65;line-height:1.65;margin-bottom:28px;">Leave your name and email and we'll send you the paper directly.</p>
+          <div id="mba-form-wrap">
+            <form onsubmit="handleMbaRequest(event)">
+              <div class="form-group"><label>Name</label><input type="text" id="mba-name" required placeholder="Your name"></div>
+              <div class="form-group"><label>Organisation</label><input type="text" id="mba-org" placeholder="Where you work"></div>
+              <div class="form-group" style="margin-bottom:24px;"><label>Email</label><input type="email" id="mba-email" required placeholder="Your email address"></div>
+              <button type="submit" class="form-submit">Send me the paper</button>
+            </form>
+          </div>
+          <div id="mba-thanks" style="display:none;text-align:center;padding:24px 0;">
+            <p style="font-family:Georgia,serif;font-size:18px;margin-bottom:10px;">Thank you.</p>
+            <p style="font-size:14px;opacity:0.65;">You'll hear from us shortly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="r-item pending">
+        <div>
+          <div class="r-tag">TCC — In Development</div>
+          <h4>Closing the Promise Gap: Why Insurance Does Not Reach the Communities That Need It Most</h4>
+          <div class="r-meta">TCC's founding position paper. Publication date TBC.</div>
+        </div>
+        <div class="r-arrow" style="color: var(--muted);">—</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left fade-in">
+        <p class="section-label">Contact</p>
+        <h2>Get in touch.</h2>
+        <p>We are in our founding phase. If you work in insurance, risk, policy, development finance or community resilience — and you recognise the gap TCC exists to fill — we want to hear from you.</p>
+        <p>Whether you want to join the founding group, explore a research partnership, or simply understand more about what TCC is building, reach out.</p>
+        <div class="contact-note">The Covered Collective is a trading name of RS Works Ltd.<br>Registered in England and Wales. Company Number 17187693.</div>
+      </div>
+      <div class="fade-in">
+        <form action="https://formspree.io/f/xpqkvgwp" method="POST">
+          <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+          <div class="form-group"><label for="org">Organisation</label><input type="text" id="org" name="organisation"></div>
+          <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+          <div class="form-group">
+            <label for="reason">I'm reaching out because…</label>
+            <select id="reason" name="reason">
+              <option value="">Select one</option>
+              <option value="founding">I'm interested in the founding group</option>
+              <option value="research">I have a research or partnership interest</option>
+              <option value="capital">I represent capital or underwriting capacity</option>
+              <option value="community">I represent a community or public sector body</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+          <div class="form-group"><label for="message">Message</label><textarea id="message" name="message"></textarea></div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg width="30" height="19" viewBox="0 0 34 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="34" height="21" fill="#EDEBE4"/>
+        <path d="M17 2.5 A14.5 14.5 0 0 1 31.5 17" stroke="#1A1A1A" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <path d="M17 2.5 A14.5 14.5 0 0 0 2.5 17" stroke="#1A1A1A" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+        <rect x="0" y="15" width="34" height="7" fill="#EDEBE4"/>
+        <rect x="1.5" y="16" width="31" height="3.5" rx="1.75" fill="#3D7A72"/>
+      </svg>
+      <div>
+        <span class="name">The Covered Collective</span>
+        <span class="descriptor">Closing the Protection Gap</span>
+      </div>
+    </div>
+    <div class="footer-right">© 2026 RS Works Ltd. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Close modal on backdrop click
+  document.getElementById('mba-modal').addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
+
+  async function handleMbaRequest(e) {
+    e.preventDefault();
+    const name = document.getElementById('mba-name').value;
+    const org = document.getElementById('mba-org').value;
+    const email = document.getElementById('mba-email').value;
+
+    try {
+      await fetch('https://formspree.io/f/xpqkvgwp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'MBA paper request — ' + name,
+          name, org, email,
+          message: 'Paper request: Why Insurtech Adoption Keeps Failing',
+          _replyto: email
+        })
+      });
+    } catch(err) {
+      // Fail silently — show thanks regardless
+    }
+    document.getElementById('mba-form-wrap').style.display = 'none';
+    document.getElementById('mba-thanks').style.display = 'block';
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
